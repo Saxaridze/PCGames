@@ -39,7 +39,7 @@
                 <DataGridTemplateColumn Header="Редактирование">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="BtnEdit" Click="BtnEdit_Click"  Background="#FF2F2FBB" Foreground="White">Изменить</Button>
+                            <Button x:Name="BtnEdit" Click="BtnEdit_Click"  Background="#FF2D2DC3" Foreground="White">Изменить</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
