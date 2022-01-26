@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="882a1668c23844379c0f4fa82165ee70" Name="Diagram1" ZoomLevel="111">
+        <EntityTypeShape EntityType="OnlinePСGamesModel.Bublisher" Width="1.5" PointX="0.875" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlinePСGamesModel.Client" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlinePСGamesModel.Creator" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlinePСGamesModel.Employee" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlinePСGamesModel.Game" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlinePСGamesModel.Genre" Width="1.5" PointX="3" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlinePСGamesModel.ListOfGenre" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlinePСGamesModel.Picture" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlinePСGamesModel.Position" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlinePСGamesModel.SaleOfTheGame" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="OnlinePСGamesModel.FK_Games_Bublisher" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlinePСGamesModel.FK_SaleOfTheGame_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlinePСGamesModel.FK_Games_Creator" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlinePСGamesModel.FK_Employees_Position" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlinePСGamesModel.FK_SaleOfTheGame_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlinePСGamesModel.FK_ListOfGenres_Games" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlinePСGamesModel.FK_SaleOfTheGame_Games" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlinePСGamesModel.FK_ListOfGenres_Genre" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

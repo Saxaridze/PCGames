@@ -1,0 +1,49 @@
+﻿<Window x:Class="WpfApp1.TableGame"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="TableGame" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="StackLetters" Orientation="Horizontal" Background="{StaticResource ColorMain}">
+            <TextBlock FontWeight="Bold" Foreground="White" Margin="10,20,0,0" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown">ALL</TextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Background="{StaticResource ColorMain}" Grid.Row="1">
+            <TextBlock>Разработчик</TextBlock>
+            <ComboBox Name="CmbCreator" DisplayMemberPath="Наименование_разработчика" SelectionChanged="CmbCreator_SelectionChanged"></ComboBox>
+            <TextBlock>Стоимость</TextBlock>
+            <TextBox x:Name="TxtNameGame"></TextBox>
+            <Button x:Name="BtnAddGame" Click="BtnAddGame_Click"  Width="60" Height="30" Background="#FF2F2FBB" Foreground="White">Добавить</Button>
+            <Button x:Name="BtnDiliteGame" Click="BtnDiliteGame_Click"  Width="60" Height="30" Background="#FF2F2FBB" Foreground="White" Margin="5">Удалить</Button>
+        </StackPanel>
+        <DataGrid x:Name="DataGames" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" ColumnWidth="*" SelectionMode="Single" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименование"  Binding="{Binding Наименование}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Издатель" Binding="{Binding Bublisher.Наименование_издателя}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Разработчик" Binding="{Binding Creator.Наименование_разработчика}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Стоимость" Binding="{Binding Стоимость}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Фото">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Фото}"></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Редактирование">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="BtnEdit" Click="BtnEdit_Click"  Background="#FF2F2FBB" Foreground="White">Изменить</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

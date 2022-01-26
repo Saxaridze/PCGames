@@ -1,0 +1,617 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище OnlinePСGamesModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bublisher">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Наименование_издателя" Type="nvarchar" MaxLength="150" />
+          <Property Name="Описание" Type="nvarchar" MaxLength="600" />
+          <Property Name="Сайт_издателя" Type="nvarchar" MaxLength="350" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ФИО" Type="nvarchar" MaxLength="300" />
+          <Property Name="Email" Type="nvarchar" MaxLength="105" />
+          <Property Name="Дата_регистрации" Type="date" />
+        </EntityType>
+        <EntityType Name="Creator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Наименование_разработчика" Type="nvarchar" MaxLength="150" />
+          <Property Name="Описание" Type="nvarchar" MaxLength="500" />
+          <Property Name="Сайт_разработчика" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ФИО" Type="nvarchar" MaxLength="300" />
+          <Property Name="Паспортные_данные" Type="nvarchar" MaxLength="150" />
+          <Property Name="Дата_устройства" Type="date" />
+          <Property Name="Должность" Type="int" />
+        </EntityType>
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Наименование" Type="nvarchar" MaxLength="150" />
+          <Property Name="Издатель" Type="int" />
+          <Property Name="Разработчик" Type="int" />
+          <Property Name="Стоимость" Type="int" />
+          <Property Name="Фото" Type="image" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Жанр" Type="nvarchar" MaxLength="50" />
+          <Property Name="Описание_жанра" Type="nvarchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="ListOfGenres">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Жанр" Type="int" />
+          <Property Name="Игра" Type="int" />
+        </EntityType>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IMG" Type="image" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" />
+          <Property Name="CreateTime" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Наименование" Type="nvarchar" MaxLength="150" />
+          <Property Name="Оклад" Type="int" />
+        </EntityType>
+        <EntityType Name="SaleOfTheGame">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Наименование_игры" Type="int" />
+          <Property Name="Покупатель" Type="int" />
+          <Property Name="Отвественный" Type="int" />
+        </EntityType>
+        <Association Name="FK_Employees_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="Должность" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Bublisher">
+          <End Role="Bublisher" Type="Self.Bublisher" Multiplicity="0..1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bublisher">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Издатель" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Creator">
+          <End Role="Creator" Type="Self.Creator" Multiplicity="0..1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Creator">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Разработчик" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListOfGenres_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="0..1" />
+          <End Role="ListOfGenres" Type="Self.ListOfGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ListOfGenres">
+              <PropertyRef Name="Игра" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListOfGenres_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="0..1" />
+          <End Role="ListOfGenres" Type="Self.ListOfGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ListOfGenres">
+              <PropertyRef Name="Жанр" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleOfTheGame_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="SaleOfTheGame" Type="Self.SaleOfTheGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SaleOfTheGame">
+              <PropertyRef Name="Покупатель" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleOfTheGame_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="SaleOfTheGame" Type="Self.SaleOfTheGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SaleOfTheGame">
+              <PropertyRef Name="Отвественный" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleOfTheGame_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="0..1" />
+          <End Role="SaleOfTheGame" Type="Self.SaleOfTheGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SaleOfTheGame">
+              <PropertyRef Name="Наименование_игры" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище OnlinePСGamesModelContainer">
+          <EntitySet Name="Bublisher" EntityType="Self.Bublisher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Creator" EntityType="Self.Creator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListOfGenres" EntityType="Self.ListOfGenres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Picture" EntityType="Self.Picture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SaleOfTheGame" EntityType="Self.SaleOfTheGame" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employees_Position" Association="Self.FK_Employees_Position">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Bublisher" Association="Self.FK_Games_Bublisher">
+            <End Role="Bublisher" EntitySet="Bublisher" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Creator" Association="Self.FK_Games_Creator">
+            <End Role="Creator" EntitySet="Creator" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListOfGenres_Games" Association="Self.FK_ListOfGenres_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="ListOfGenres" EntitySet="ListOfGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListOfGenres_Genre" Association="Self.FK_ListOfGenres_Genre">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="ListOfGenres" EntitySet="ListOfGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleOfTheGame_Client" Association="Self.FK_SaleOfTheGame_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="SaleOfTheGame" EntitySet="SaleOfTheGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleOfTheGame_Employees" Association="Self.FK_SaleOfTheGame_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="SaleOfTheGame" EntitySet="SaleOfTheGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleOfTheGame_Games" Association="Self.FK_SaleOfTheGame_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="SaleOfTheGame" EntitySet="SaleOfTheGame" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnlinePСGamesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bublisher">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Наименование_издателя" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Описание" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="Сайт_издателя" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_Games_Bublisher" FromRole="Bublisher" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ФИО" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="105" FixedLength="false" Unicode="true" />
+          <Property Name="Дата_регистрации" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="SaleOfTheGames" Relationship="Self.FK_SaleOfTheGame_Client" FromRole="Client" ToRole="SaleOfTheGame" />
+        </EntityType>
+        <EntityType Name="Creator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Наименование_разработчика" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Описание" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Сайт_разработчика" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_Games_Creator" FromRole="Creator" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ФИО" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Паспортные_данные" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Дата_устройства" Type="DateTime" Precision="0" />
+          <Property Name="Должность" Type="Int32" />
+          <NavigationProperty Name="Position" Relationship="Self.FK_Employees_Position" FromRole="Employees" ToRole="Position" />
+          <NavigationProperty Name="SaleOfTheGames" Relationship="Self.FK_SaleOfTheGame_Employees" FromRole="Employees" ToRole="SaleOfTheGame" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Наименование" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Издатель" Type="Int32" />
+          <Property Name="Разработчик" Type="Int32" />
+          <Property Name="Стоимость" Type="Int32" />
+          <NavigationProperty Name="Bublisher" Relationship="Self.FK_Games_Bublisher" FromRole="Games" ToRole="Bublisher" />
+          <NavigationProperty Name="Creator" Relationship="Self.FK_Games_Creator" FromRole="Games" ToRole="Creator" />
+          <NavigationProperty Name="ListOfGenres" Relationship="Self.FK_ListOfGenres_Games" FromRole="Games" ToRole="ListOfGenres" />
+          <NavigationProperty Name="SaleOfTheGames" Relationship="Self.FK_SaleOfTheGame_Games" FromRole="Games" ToRole="SaleOfTheGame" />
+          <Property Name="Фото" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Жанр" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Описание_жанра" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ListOfGenres" Relationship="Self.FK_ListOfGenres_Genre" FromRole="Genre" ToRole="ListOfGenres" />
+        </EntityType>
+        <EntityType Name="ListOfGenre">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Жанр" Type="Int32" />
+          <Property Name="Игра" Type="Int32" />
+          <NavigationProperty Name="Game" Relationship="Self.FK_ListOfGenres_Games" FromRole="ListOfGenres" ToRole="Games" />
+          <NavigationProperty Name="Genre" Relationship="Self.FK_ListOfGenres_Genre" FromRole="ListOfGenres" ToRole="Genre" />
+        </EntityType>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IMG" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Наименование" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Оклад" Type="Int32" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Position" FromRole="Position" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="SaleOfTheGame">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Наименование_игры" Type="Int32" />
+          <Property Name="Покупатель" Type="Int32" />
+          <Property Name="Отвественный" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_SaleOfTheGame_Client" FromRole="SaleOfTheGame" ToRole="Client" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_SaleOfTheGame_Employees" FromRole="SaleOfTheGame" ToRole="Employees" />
+          <NavigationProperty Name="Game" Relationship="Self.FK_SaleOfTheGame_Games" FromRole="SaleOfTheGame" ToRole="Games" />
+        </EntityType>
+        <Association Name="FK_Games_Bublisher">
+          <End Role="Bublisher" Type="Self.Bublisher" Multiplicity="0..1" />
+          <End Role="Games" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bublisher">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Издатель" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleOfTheGame_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="SaleOfTheGame" Type="Self.SaleOfTheGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SaleOfTheGame">
+              <PropertyRef Name="Покупатель" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Creator">
+          <End Role="Creator" Type="Self.Creator" Multiplicity="0..1" />
+          <End Role="Games" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Creator">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Разработчик" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="Должность" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleOfTheGame_Employees">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="SaleOfTheGame" Type="Self.SaleOfTheGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SaleOfTheGame">
+              <PropertyRef Name="Отвественный" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListOfGenres_Games">
+          <End Role="Games" Type="Self.Game" Multiplicity="0..1" />
+          <End Role="ListOfGenres" Type="Self.ListOfGenre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ListOfGenres">
+              <PropertyRef Name="Игра" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleOfTheGame_Games">
+          <End Role="Games" Type="Self.Game" Multiplicity="0..1" />
+          <End Role="SaleOfTheGame" Type="Self.SaleOfTheGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SaleOfTheGame">
+              <PropertyRef Name="Наименование_игры" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListOfGenres_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="0..1" />
+          <End Role="ListOfGenres" Type="Self.ListOfGenre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ListOfGenres">
+              <PropertyRef Name="Жанр" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnlinePСGamesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bublishers" EntityType="Self.Bublisher" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Creators" EntityType="Self.Creator" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Games" EntityType="Self.Game" />
+          <EntitySet Name="Genres" EntityType="Self.Genre" />
+          <EntitySet Name="ListOfGenres" EntityType="Self.ListOfGenre" />
+          <EntitySet Name="Pictures" EntityType="Self.Picture" />
+          <EntitySet Name="Positions" EntityType="Self.Position" />
+          <EntitySet Name="SaleOfTheGames" EntityType="Self.SaleOfTheGame" />
+          <AssociationSet Name="FK_Games_Bublisher" Association="Self.FK_Games_Bublisher">
+            <End Role="Bublisher" EntitySet="Bublishers" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleOfTheGame_Client" Association="Self.FK_SaleOfTheGame_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="SaleOfTheGame" EntitySet="SaleOfTheGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Creator" Association="Self.FK_Games_Creator">
+            <End Role="Creator" EntitySet="Creators" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Position" Association="Self.FK_Employees_Position">
+            <End Role="Position" EntitySet="Positions" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleOfTheGame_Employees" Association="Self.FK_SaleOfTheGame_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="SaleOfTheGame" EntitySet="SaleOfTheGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListOfGenres_Games" Association="Self.FK_ListOfGenres_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="ListOfGenres" EntitySet="ListOfGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleOfTheGame_Games" Association="Self.FK_SaleOfTheGame_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="SaleOfTheGame" EntitySet="SaleOfTheGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListOfGenres_Genre" Association="Self.FK_ListOfGenres_Genre">
+            <End Role="Genre" EntitySet="Genres" />
+            <End Role="ListOfGenres" EntitySet="ListOfGenres" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище OnlinePСGamesModelContainer" CdmEntityContainer="OnlinePСGamesEntities">
+          <EntitySetMapping Name="Bublishers">
+            <EntityTypeMapping TypeName="OnlinePСGamesModel.Bublisher">
+              <MappingFragment StoreEntitySet="Bublisher">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Наименование_издателя" ColumnName="Наименование_издателя" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+                <ScalarProperty Name="Сайт_издателя" ColumnName="Сайт_издателя" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="OnlinePСGamesModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Дата_регистрации" ColumnName="Дата_регистрации" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Creators">
+            <EntityTypeMapping TypeName="OnlinePСGamesModel.Creator">
+              <MappingFragment StoreEntitySet="Creator">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Наименование_разработчика" ColumnName="Наименование_разработчика" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+                <ScalarProperty Name="Сайт_разработчика" ColumnName="Сайт_разработчика" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="OnlinePСGamesModel.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+                <ScalarProperty Name="Паспортные_данные" ColumnName="Паспортные_данные" />
+                <ScalarProperty Name="Дата_устройства" ColumnName="Дата_устройства" />
+                <ScalarProperty Name="Должность" ColumnName="Должность" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="OnlinePСGamesModel.Game">
+              <MappingFragment StoreEntitySet="Games">
+                <ScalarProperty Name="Фото" ColumnName="Фото" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+                <ScalarProperty Name="Издатель" ColumnName="Издатель" />
+                <ScalarProperty Name="Разработчик" ColumnName="Разработчик" />
+                <ScalarProperty Name="Стоимость" ColumnName="Стоимость" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genres">
+            <EntityTypeMapping TypeName="OnlinePСGamesModel.Genre">
+              <MappingFragment StoreEntitySet="Genre">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Жанр" ColumnName="Жанр" />
+                <ScalarProperty Name="Описание_жанра" ColumnName="Описание_жанра" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListOfGenres">
+            <EntityTypeMapping TypeName="OnlinePСGamesModel.ListOfGenre">
+              <MappingFragment StoreEntitySet="ListOfGenres">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Жанр" ColumnName="Жанр" />
+                <ScalarProperty Name="Игра" ColumnName="Игра" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pictures">
+            <EntityTypeMapping TypeName="OnlinePСGamesModel.Picture">
+              <MappingFragment StoreEntitySet="Picture">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IMG" ColumnName="IMG" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Positions">
+            <EntityTypeMapping TypeName="OnlinePСGamesModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+                <ScalarProperty Name="Оклад" ColumnName="Оклад" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SaleOfTheGames">
+            <EntityTypeMapping TypeName="OnlinePСGamesModel.SaleOfTheGame">
+              <MappingFragment StoreEntitySet="SaleOfTheGame">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Наименование_игры" ColumnName="Наименование_игры" />
+                <ScalarProperty Name="Покупатель" ColumnName="Покупатель" />
+                <ScalarProperty Name="Отвественный" ColumnName="Отвественный" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

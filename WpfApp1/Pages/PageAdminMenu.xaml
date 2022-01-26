@@ -1,0 +1,19 @@
+﻿<Page x:Class="WpfApp1.Pages.PageAdminMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="800"
+      Title="PageAdminMenu">
+
+    <Grid>
+        <UniformGrid Columns="2" Rows="2">
+            <Button x:Name="BtnClients" Click="BtnClients_Click"  Style="{StaticResource MenuButton}" Content="Clients"></Button>
+            <Button x:Name="BtnGames" Click="BtnGames_Click"  Style="{StaticResource MenuButton}" Content="Games"></Button>
+            <Button x:Name="BtnListOfGenre" Click="BtnListOfGenre_Click"  Style="{StaticResource MenuButton}" Content="ListOfGenre"></Button>
+            <Button x:Name="BtnEmployee" Click="BtnEmployee_Click"  Style="{StaticResource MenuButton}" Content="Employee"></Button>
+        </UniformGrid>
+    </Grid>
+</Page>

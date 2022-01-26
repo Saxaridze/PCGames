@@ -1,0 +1,29 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Rectangle Grid.Row="0" Fill="{StaticResource ColorMain}"></Rectangle>
+            <Button x:Name="BtnBack" Click="BtnBack_Click"  HorizontalAlignment="Right" Width="100" Height="30" Background="#FF2F2FBB" Foreground="White">Назад</Button>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=MainFrame, Path=Content.Title}"></TextBlock>
+
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Resources/MoonLogo.jpg" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" Height="70"/>
+                <TextBlock VerticalAlignment="Center" Height="15"><Run Text="Lucky Moon" Foreground="#FF3C0F72" FontWeight="Bold"/></TextBlock>
+            </StackPanel>
+        </Grid>
+        <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered"></Frame>
+        <Rectangle Grid.Row="2" Fill="{StaticResource ColorMain}"></Rectangle>
+        <Label Grid.Row="2" Content="© 2022 Lucky Moon. Все права защищены. Все торговые марки являются собственностью соответствующих владельцев." VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF3C0F72" />
+    </Grid>
+</Window>
